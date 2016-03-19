@@ -33,6 +33,21 @@ app.controller("MainCtrl", function($scope, $http){
     });
   };
 
+  $scope.create = function(){
+    $http.post('/api', $scope.newProduct)
+    .then(function(){
+      getAll();
+    });
+  };
+
+  $scope.remove = function(index){
+    var id = $scope.products[index]._id;
+    $http.delete('/api/' + id)
+    .then(function(){
+      getAll();
+    });
+  };
+
 
 
   getAll();

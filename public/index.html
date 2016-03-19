@@ -17,21 +17,21 @@
                 <form>
                     <div class="form-group">
                         <label class="control-label">Product name</label>
-                        <input class="form-control" type="text">
+                        <input class="form-control" ng-model="newProduct.name" type="text">
                     </div>
                     <div class="form-group">
                         <label class="control-label">Priority </label>
-                        <input class="form-control" type="text">
+                        <input class="form-control" ng-model="newProduct.priority" type="text">
                     </div>
                 </form>
-                <button class="btn btn-primary" type="button">+Add</button>
+                <button class="btn btn-primary" ng-click="create()" type="button">+Add</button>
             </div>
             <ul class="list-group">
                 <li class="list-group-item" id="item-row" ng-repeat="product in products"><span>{{product.name}}</span>
                     <ul class="list-inline pull-right">
                         <li> <i class="glyphicon glyphicon-hand-up" ng-click="moveUp($index)" ng-show='$index > 0'></i></li>
                         <li> <i class="glyphicon glyphicon-hand-down" ng-click="moveDown($index)" ng-show='$index < products.length -1'></i></li>
-                        <li> <i class="glyphicon glyphicon-trash"></i></li>
+                        <li> <i class="glyphicon glyphicon-trash" ng-click="remove($index)"></i></li>
                         <li class="badge">{{product.priority}}</li>
                     </ul>
                 </li>
