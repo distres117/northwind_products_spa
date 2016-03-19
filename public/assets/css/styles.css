@@ -8,6 +8,14 @@ label.control-label{
 
 #item-row{
   border-color: black;
+  transition: all .3s;
+}
+.ng-enter, .ng-move{
+  background: orange;
+}
+
+.ng-leave{
+  background: red;
 }
 
 .glyphicon{

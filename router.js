@@ -11,8 +11,8 @@ router.route('/')
 
   .post(function(req,res,next){
     Product.create(req.body)
-    .then(function(){
-      res.sendStatus(200);
+    .then(function(product){
+      res.status(200).json(product);
     }, next);
   });
 
@@ -23,8 +23,8 @@ router.route('/:id')
       product.priority = req.body.priority;
       return product.save();
     })
-    .then(function(){
-      res.sendStatus(204);
+    .then(function(product){
+      res.status(200).json(product);
     },next);
   })
   .delete(function(req,res,next){

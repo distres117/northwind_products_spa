@@ -48,7 +48,8 @@ describe('route tests', function(){
         return request.put('/api/' + product.id).send({priority: index});
       })
       .then(function(res){
-        expect(res.statusCode).to.equal(204);
+        expect(res.statusCode).to.equal(200);
+        expect(res.body.name).to.equal(product.name);
         return getRequest(function(res){
           expect(product.name).to.equal(res.body[1].name);
         });

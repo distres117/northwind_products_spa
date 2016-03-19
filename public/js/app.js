@@ -1,21 +1,32 @@
-var app = angular.module('app', []);
+var app = angular.module('app', ['ngAnimate']);
 
-app.controller("MainCtrl", function($scope, $http){
+app.controller("MainCtrl", function($scope, $http, $animate){
 
-  function getAll(){
+
+  function getAll(fn){
     $http.get('/api')
     .then(function(products){
+      if (fn)
+        return fn(products.data);
       $scope.products = products.data;
     });
   }
 
   function reorder(index, fn){
-    console.log(index);
     var productId = $scope.products[index]._id;
     var val = fn($scope.products);
     $http.put('/api/' + productId, {priority: val})
-    .then(function(){
-      getAll();
+    .then(function(product){
+      getAll(function(products){
+        var ids = products.map(function(prod){
+          return prod._id;
+        });
+        var insertAt = ids.indexOf(product.data._id);
+        $scope.products.splice(index, 1);
+        $scope.products.splice(insertAt, 0, product.data);
+        //getAll();
+
+      });
     });
   }
 
@@ -35,8 +46,14 @@ app.controller("MainCtrl", function($scope, $http){
 
   $scope.create = function(){
     $http.post('/api', $scope.newProduct)
-    .then(function(){
-      getAll();
+    .then(function(product){
+      getAll(function(products){
+        var ids = products.map(function(prod){
+          return prod._id;
+        });
+        var insertAt = ids.indexOf(product.data._id);
+        $scope.products.splice(insertAt, 0, product.data);
+      });
     });
   };
 
@@ -44,7 +61,9 @@ app.controller("MainCtrl", function($scope, $http){
     var id = $scope.products[index]._id;
     $http.delete('/api/' + id)
     .then(function(){
-      getAll();
+      getAll(function(products){
+        $scope.products.splice(index, 1);
+      });
     });
   };
 
