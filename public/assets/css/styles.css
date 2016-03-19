@@ -1,0 +1,15 @@
+ul.list-inline{
+  font-size:larger;
+}
+
+label.control-label{
+  font-size:large;
+}
+
+#item-row{
+  border-color: black;
+}
+
+.glyphicon{
+  cursor: pointer;
+}
