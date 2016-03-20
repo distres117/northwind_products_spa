@@ -7,7 +7,8 @@
     "test": "TESTING=true nodemon --exec mocha",
     "seed": "node db/seed.js",
     "start-dev": "nodemon --ignore '/public/*' server.js",
-    "start": "node server.js"
+    "start": "node server.js",
+    "postinstall": "npm run seed"
   },
   "author": "",
   "license": "ISC",
