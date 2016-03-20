@@ -14,6 +14,12 @@
         <div class="col-md-10 col-md-offset-1">
             <h1 class="text-center text-muted">Welcome to Northwind SPA</h1>
             <div class="well">
+              <div class="alert alert-danger" ng-show="error" role="alert">
+                <span><strong>The following errors have occurred:</strong></span>
+                <ul>
+                  <li ng-repeat="(key,value) in error">{{value.message}}</li>
+                </ul>
+              </div>
                 <form>
                     <div class="form-group">
                         <label class="control-label">Product name</label>
@@ -27,7 +33,7 @@
                 <button class="btn btn-primary" ng-click="create()" type="button">+Add</button>
             </div>
             <ul class="list-group">
-                <li class="list-group-item" id="item-row" ng-repeat="product in products"><span>{{product.name}}</span>
+                <li class="list-group-item" ng-class="{flash : flashindex===$index}" id="item-row" ng-repeat="product in products"><span>{{product.name}}</span>
                     <ul class="list-inline pull-right">
                         <li> <i class="glyphicon glyphicon-hand-up" ng-click="moveUp($index)" ng-show='$index > 0'></i></li>
                         <li> <i class="glyphicon glyphicon-hand-down" ng-click="moveDown($index)" ng-show='$index < products.length -1'></i></li>
