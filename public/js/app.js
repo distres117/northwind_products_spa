@@ -35,6 +35,9 @@ app.controller("MainCtrl", function($scope, $http, $timeout){
     });
 
   };
+  $scope.canMoveUp = function(index){
+    return index > 0 && $scope.products[index-1].priority > 1;
+  };
 
   $scope.moveDown = function(index){
     reorder(index, function(products){
@@ -45,6 +48,7 @@ app.controller("MainCtrl", function($scope, $http, $timeout){
   $scope.create = function(){
     $http.post('/api', $scope.newProduct)
     .then(function(product){
+      $scope.newProduct = {};
       if (product.data.errors){
         $scope.error = product.data.errors;
         $timeout(function(){

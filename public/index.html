@@ -35,7 +35,7 @@
             <ul class="list-group">
                 <li class="list-group-item" ng-class="{flash : flashindex===$index}" id="item-row" ng-repeat="product in products"><span>{{product.name}}</span>
                     <ul class="list-inline pull-right">
-                        <li> <i class="glyphicon glyphicon-hand-up" ng-click="moveUp($index)" ng-show='$index > 0'></i></li>
+                        <li> <i class="glyphicon glyphicon-hand-up" ng-click="moveUp($index)" ng-show="canMoveUp($index)"></i></li>
                         <li> <i class="glyphicon glyphicon-hand-down" ng-click="moveDown($index)" ng-show='$index < products.length -1'></i></li>
                         <li> <i class="glyphicon glyphicon-trash" ng-click="remove($index)"></i></li>
                         <li class="badge">{{product.priority}}</li>
