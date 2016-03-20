@@ -4,7 +4,7 @@ var app = require('./app'),
 dbconnect()
 .then(function(){
   console.log('db is connected...');
-  app.listen(process.env.port || 3000, function(){
+  app.listen(process.env.PORT || 3000, function(){
     console.log("Server is running...");
   });
 });
