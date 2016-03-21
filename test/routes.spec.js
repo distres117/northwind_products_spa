@@ -15,11 +15,16 @@ describe('route tests', function(){
         fn(res);
       });
     }
+
+    //seed data should be simple enough that you don't need to do this.. no?
+    
     function sort(arr)
     {
       return arr.concat().sort((a,b)=> a.priority - b.priority);
     }
+
     it('Gets all products from highest to lowest priority', function(){
+      //how about doing this without a call back?
       return getRequest(function(res){
         var products = res.body;
         expect(products).to.eql(sort(products));
@@ -29,8 +34,9 @@ describe('route tests', function(){
     it('Posts new product', function(){
       return request.post('/api')
       .send({name: 'Old cellphone', priority: 9})
+      .expect(200);
       .then(function(res){
-        expect(res.statusCode).to.equal(200);
+        //if you don't do a callback you can do a promise chain
         return getRequest(function(res){
           var products = res.body;
           expect(products).to.eql(sort(products));

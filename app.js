@@ -8,7 +8,7 @@ app.use(bodyParser.json());
 app.use(express.static( __dirname + '/public'));
 app.use(require('serve-favicon')(__dirname + '/public/favicon.ico'));
 app.use(require('morgan')('dev'));
-app.use('/api',require('./router'));
+app.use('/api',require('./router'));//maybe /api/<resource_name> might be better
 
 app.use(function(req,res,next){
   var error = new Error("404: Page not found");

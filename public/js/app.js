@@ -1,9 +1,13 @@
+//think about putting your code in a client folder--
+//let the public holder hold vendor libraries
+//this makes it clear where your code is, and where vendor code is
 var app = angular.module('app', ['ngAnimate']);
 
 app.controller("MainCtrl", function($scope, $http, $timeout){
 
 
   function getAll(fn){
+    //how about if we do this without a callback-- instead 
     $http.get('/api')
     .then(function(products){
       if (fn)
@@ -28,7 +32,9 @@ app.controller("MainCtrl", function($scope, $http, $timeout){
     });
   }
 
+  //shouldn't need it
   $scope.products = null;
+
   $scope.moveUp = function(index){
     reorder(index, function(products){
       return products[index-1].priority - 1;

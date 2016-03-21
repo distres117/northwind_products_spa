@@ -22,7 +22,7 @@ var seed = function(){
     console.log(err);
   });
 };
-if (!process.env.TESTING){
+if (!process.env.TESTING){//good stuff!
   seed()
   .then(function(){
     process.exit(0);
