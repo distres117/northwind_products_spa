@@ -10,12 +10,20 @@ label.control-label{
   border-color: black;
   transition: all .3s;
 }
-.ng-enter, .ng-move{
+
+.alert {
+  opacity: 0;
+  transition: all .3s;
+}
+
+
+.flash{
   background: orange;
 }
 
-.flash{
-  background: red;
+.warn{
+  opacity: 1;
+  background:red;
 }
 
 .glyphicon{
