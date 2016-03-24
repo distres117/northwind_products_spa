@@ -4,9 +4,10 @@ define(['angular'], function(angular){
         return{
             link: function(scope, elem, attr){
                 scope.$watch(function(){
-                    return NotifyService.watchFn;
+                    return NotifyService.active;
                 }, function(){
-                    NotifyService.watchFn(elem, attr.notifyDir);
+                    if (NotifyService.active)
+                        NotifyService.watchFn(elem, attr.notifyDir);
                 })
             }
         }

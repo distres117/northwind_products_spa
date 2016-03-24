@@ -1,7 +1,6 @@
 define(['angular'], function(angular){
    angular.module('app.services', [])
    .service('ApiService', function($http, $timeout, NotifyService){
-       var that = this;
        var subscriptions = [];
        
        this.subscribe = function(scope){
@@ -32,10 +31,10 @@ define(['angular'], function(angular){
          .then(function(res){
              iterSubscriptions(function(scope){
                  scope.products = res.data;
-             })
+             });
              if (id){
                 var ids = res.data.map(function(it){
-                   return it._id; 
+                  return it._id; 
                 });
                 var newIndex = ids.indexOf(id);
                 NotifyService.notify(newIndex, 'flash');
@@ -45,6 +44,7 @@ define(['angular'], function(angular){
        };
        
        this.create = function(product){
+           var that = this;
            $http.post('/api', product)
            .then(function(res){
                iterSubscriptions(function(scope){
@@ -57,18 +57,23 @@ define(['angular'], function(angular){
        }
        
        this.remove = function(id, index){
+           var that = this;
            NotifyService.notify(index, 'warn')
-           .then(function(){
+          .then(function(){
               return $http.delete('/api/' + id);
-           }) 
-           .then(function(){
-             that.getAll();  
-           });
+          }) 
+          .then(function(){
+             that.getAll(null);  
+          });
            
        }
        
-       this.update = function(id, data){
-           $http.put('/api/' + id, data)
+       this.update = function(id, data, index){
+           var that = this;
+           NotifyService.notify(index, 'flash')
+           .then(function(){
+               return $http.put('/api/' + id, data);
+           })
            .then(function(){
               that.getAll(id); 
            });
@@ -76,6 +81,7 @@ define(['angular'], function(angular){
    })
     .service("NotifyService", function($q,$timeout){
         this.watchFn = null;
+        this.active = false;
         var that = this;
         
         this.notify = function(targetindex, color, to){
@@ -85,10 +91,12 @@ define(['angular'], function(angular){
                        elem.addClass(color);
                        $timeout(function(){
                            elem.removeClass(color);
+                           that.active = false;
                            res(index);
                        }, to || 500);
                    }
-               } 
+               }
+               that.active = true;
             });
         }
     });

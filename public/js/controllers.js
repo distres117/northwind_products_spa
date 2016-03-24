@@ -8,7 +8,7 @@ define(['angular'], function(angular){
       function reorder(index, fn){
         var productId = $scope.products[index]._id;
         var val = fn($scope.products);
-        ApiService.update(productId, {priority: val});
+        ApiService.update(productId, {priority: val}, index);
        
       }
     
